@@ -104,20 +104,5 @@ curl --http2-prior-knowledge "http://localhost:9000/scanFile?path=/tmp/file.txt"
 ### Build the Docker image
 
 ```bash
-docker build -t av-rest .
-```
-
-### Build the Go binary
-
-```bash
-GOOS=linux GOARCH=amd64 go build
-```
-
-### Run tests
-
-Requires a running av-rest instance:
-
-```bash
-pip install -r tests/requirements.txt
-behave tests/features
+docker build -t iwfwebsolutions/av-rest:latest .
 ```
