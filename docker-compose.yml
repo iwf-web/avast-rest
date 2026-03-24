@@ -1,7 +1,0 @@
-version: '2'
-services:
-  av-rest:
-    image: iwfwebsolutions/av-rest
-    ports:
-      - "9000:9000"
-      - "9443:9443"

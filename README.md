@@ -28,11 +28,6 @@ docker run -p 9000:9000 \
   iwfwebsolutions/av-rest:latest
 ```
 
-Or with Docker Compose:
-
-```bash
-docker compose up
-```
 
 ## Endpoints
 
