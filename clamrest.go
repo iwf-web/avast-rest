@@ -93,13 +93,6 @@ func httpStatusForResult(r *scanner.ScanResult) int {
 		return http.StatusNotAcceptable // 406
 	case scanner.StatusError:
 		return http.StatusBadRequest // 400
-	case scanner.StatusParseError:
-		if strings.Contains(r.Description, "size limit") || strings.Contains(r.Description, "Size limit") {
-			return http.StatusRequestEntityTooLarge // 413
-		}
-		return http.StatusPreconditionFailed // 412
-	case scanner.StatusSizeLimit:
-		return http.StatusRequestEntityTooLarge // 413
 	default:
 		return http.StatusNotImplemented // 501
 	}
@@ -133,7 +126,12 @@ func main() {
 	}
 
 	log.Println("Using Avast scanner")
-	sc = avast.New(opts["AVAST_SCAN_BIN"], opts["AVAST_VDF_DIR"])
+	sc = avast.New(
+		opts["AVAST_SCAN_BIN"],
+		opts["AVAST_VDF_DIR"],
+		opts["AVAST_REPORT_PUP"] == "1",
+		opts["AVAST_REPORT_TOOLS"] == "1",
+	)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /scanFile", scanFileHandler)

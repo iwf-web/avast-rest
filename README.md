@@ -2,6 +2,8 @@
 
 Antivirus scanner with REST API. Docker image running Avast Business Antivirus for Linux with a lightweight REST interface.
 
+Tech docs: https://repo.avcdn.net/linux-av/doc/avast-techdoc.pdf?inid=avastcom-linux-antivirus__avast-techdoc
+
 ## Prerequisites
 
 An Avast Business Linux license is required. Either activate via code (once) or mount an existing license file.
@@ -44,8 +46,6 @@ docker run -p 9000:9000 \
 | 200  | File is clean                                                        |
 | 400  | Scanner returned a general error                                     |
 | 406  | Threat found                                                         |
-| 412  | File could not be parsed (e.g. path does not exist on disk)          |
-| 413  | File exceeds the scannable size limit                                |
 | 420  | Signatures are older than `HEALTHCHECK_MAX_SIGNATURE_AGE`            |
 | 503  | Scanner is unreachable                                               |
 
@@ -81,6 +81,14 @@ HTTP/1.1 200 OK
 |---------------------------------|-------------------|--------------------------------------------------------------|
 | `PORT`                          | `9000`            | HTTP listening port                                          |
 | `HEALTHCHECK_MAX_SIGNATURE_AGE` | `48`              | Max signature age in hours before `/healthcheck` returns 420 |
+| `AVAST_TELEMETRY`               | `0`               | Avast telemetry reporting (0 = off, 1 = on)                  |
+| `AVAST_STATISTICS`              | `0`               | Avast statistics reporting (0 = off, 1 = on)                 |
+| `AVAST_COMMUNITY`               | `0`               | Avast community participation (0 = off, 1 = on)              |
+| `AVAST_THREADS`                 | `0`               | Number of additional scanner threads (0 = only main thread)  |
+| `AVAST_MAX_FILE_SIZE_TO_EXTRACT_MB` | `1000`        | Max file size in MB to extract from archives                 |
+| `AVAST_MAX_COMPRESSION_RATIO`   | `100`             | Max compression ratio before treating archive as a bomb      |
+| `AVAST_REPORT_PUP`              | `0`               | Report potentially unwanted programs (`-u` flag, 0/1)        |
+| `AVAST_REPORT_TOOLS`            | `0`               | Report tools/hacktools (`-T` flag, 0/1)                      |
 
 ## Protocol Support
 

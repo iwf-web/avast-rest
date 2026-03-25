@@ -2,11 +2,9 @@ package scanner
 
 // Status constants returned by scanner implementations.
 const (
-	StatusOK         = "OK"
-	StatusFound      = "FOUND"
-	StatusError      = "ERROR"
-	StatusParseError = "PARSE ERROR"
-	StatusSizeLimit  = "SIZE LIMIT EXCEEDED"
+	StatusOK    = "OK"
+	StatusFound = "FOUND"
+	StatusError = "ERROR"
 )
 
 // ScanResult holds the result of a single file scan.

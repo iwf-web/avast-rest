@@ -13,6 +13,28 @@ elif [ ! -f /etc/avast/license.avastlic ]; then
     exit 1
 fi
 
+cat > /etc/avast/avast.conf <<EOF
+; Avast configuration file
+RUN_DIR = "/run/avast"
+TEMP_DIR = "/tmp"
+DATA_DIR = "/var/lib/avast"
+SOCKET = "/run/avast/scan.sock"
+LICENSE = "/etc/avast/license.avastlic"
+WHITELIST = "/etc/avast/whitelist"
+SUBMIT = "/usr/libexec/avast/submit"
+[OPTIONS]
+CREDENTIALS = 0
+TELEMETRY = ${AVAST_TELEMETRY}
+STATISTICS = ${AVAST_STATISTICS}
+COMMUNITY = ${AVAST_COMMUNITY}
+STREAMING_UPDATES = 1
+REPUTATION_QUERIES = 1
+THREADS = ${AVAST_THREADS}
+[PACKER_BOMB]
+MAX_FILE_SIZE_TO_EXTRACT_MB = ${AVAST_MAX_FILE_SIZE_TO_EXTRACT_MB}
+MAX_COMPRESSION_RATIO = ${AVAST_MAX_COMPRESSION_RATIO}
+EOF
+
 echo "Downloading Avast virus definitions..."
 /usr/lib/avast/vpsupdate
 

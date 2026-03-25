@@ -25,12 +25,16 @@ const (
 
 // Scanner uses Avast Business Antivirus for Linux (scan CLI) for file scanning.
 type Scanner struct {
-	scanBin string
-	vdfDir  string
+	scanBin     string
+	vdfDir      string
+	reportPUP   bool
+	reportTools bool
 }
 
 // New creates an Avast Scanner. Pass empty strings to use the defaults.
-func New(scanBin, vdfDir string) *Scanner {
+// reportPUP enables the -u flag (report potentially unwanted programs).
+// reportTools enables the -T flag (report tools).
+func New(scanBin, vdfDir string, reportPUP, reportTools bool) *Scanner {
 	if scanBin == "" {
 		scanBin = defaultScanBin
 	}
@@ -38,14 +42,24 @@ func New(scanBin, vdfDir string) *Scanner {
 		vdfDir = defaultVDFDir
 	}
 	return &Scanner{
-		scanBin: scanBin,
-		vdfDir:  vdfDir,
+		scanBin:     scanBin,
+		vdfDir:      vdfDir,
+		reportPUP:   reportPUP,
+		reportTools: reportTools,
 	}
 }
 
 // ScanFile scans the file at path using the Avast scan CLI.
 func (s *Scanner) ScanFile(path string) (*scanner.ScanResult, error) {
-	cmd := exec.Command(s.scanBin, path)
+	args := []string{}
+	if s.reportPUP {
+		args = append(args, "-u")
+	}
+	if s.reportTools {
+		args = append(args, "-T")
+	}
+	args = append(args, path)
+	cmd := exec.Command(s.scanBin, args...)
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out
