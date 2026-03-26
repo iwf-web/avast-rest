@@ -15,7 +15,7 @@ https://www.avast.com/business/products/linux-antivirus#pc
 ```bash
 docker run --rm \
   -e AVAST_ACTIVATION_CODE=XXXX-XXXX-XXXX-XXXX \
-  -v $(pwd)/license:/etc/avast \
+  -v $(pwd)/license/license.avastlic:/etc/avast/license.avastlic \
   iwfwebsolutions/avast-rest:latest
 ```
 
