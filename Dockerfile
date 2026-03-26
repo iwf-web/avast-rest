@@ -1,5 +1,5 @@
 ARG GO_VERSION=1.26.1
-FROM --platform=linux/amd64 golang:${GO_VERSION}-alpine AS build
+FROM golang:${GO_VERSION}-alpine AS build
 
 RUN apk update && apk upgrade
 
@@ -8,7 +8,7 @@ ADD . /go/src/avast-rest/
 RUN cd /go/src/avast-rest && go mod tidy && go build -v
 
 # ── Runtime image ────────────────────────────────────────────────────────────
-FROM --platform=linux/amd64 debian:bookworm-slim
+FROM debian:bookworm-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates \
