@@ -87,7 +87,7 @@ if [[ -n ${DEF_BRANCH} ]]; then
 
   # Add "-q" for silence...
   docker buildx build \
-    --platform=linux/amd64,linux/arm64 \
+    --platform=linux/amd64 \
     --no-cache \
     --pull \
     --push \
