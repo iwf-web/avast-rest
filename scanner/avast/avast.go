@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"iwfwebsolutions/av-rest/scanner"
+	"iwfwebsolutions/avast-rest/scanner"
 )
 
 const (

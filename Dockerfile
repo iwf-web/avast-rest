@@ -4,8 +4,8 @@ FROM --platform=linux/amd64 golang:${GO_VERSION}-alpine AS build
 RUN apk update && apk upgrade
 
 WORKDIR /go/src
-ADD . /go/src/av-rest/
-RUN cd /go/src/av-rest && go mod tidy && go build -v
+ADD . /go/src/avast-rest/
+RUN cd /go/src/avast-rest && go mod tidy && go build -v
 
 # ── Runtime image ────────────────────────────────────────────────────────────
 FROM --platform=linux/amd64 debian:bookworm-slim
@@ -35,7 +35,7 @@ RUN mkdir -p /etc/avast /var/run/avast && \
     chown -R avast:avast /etc/avast /var/run/avast
 
 # Copy compiled binary
-COPY --from=build /go/src/av-rest/av-rest /usr/bin/av-rest
+COPY --from=build /go/src/avast-rest/avast-rest /usr/bin/avast-rest
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh

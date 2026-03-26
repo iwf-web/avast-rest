@@ -57,4 +57,4 @@ done
 ) &
 
 echo "Starting antivirus-rest..."
-exec /usr/bin/av-rest
+exec /usr/bin/avast-rest

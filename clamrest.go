@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"iwfwebsolutions/av-rest/scanner"
-	"iwfwebsolutions/av-rest/scanner/avast"
+	"iwfwebsolutions/avast-rest/scanner"
+	"iwfwebsolutions/avast-rest/scanner/avast"
 )
 
 var opts map[string]string

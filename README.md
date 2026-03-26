@@ -1,4 +1,4 @@
-# av-rest
+# avast-rest
 
 Antivirus scanner with REST API. Docker image running Avast Business Antivirus for Linux with a lightweight REST interface.
 
@@ -16,7 +16,7 @@ https://www.avast.com/business/products/linux-antivirus#pc
 docker run --rm \
   -e AVAST_ACTIVATION_CODE=XXXX-XXXX-XXXX-XXXX \
   -v $(pwd)/license:/etc/avast \
-  iwfwebsolutions/av-rest:latest
+  iwfwebsolutions/avast-rest:latest
 ```
 
 This writes `./license/license.avastlic` and exits. The activation code can only be redeemed a limited number of times.
@@ -27,7 +27,7 @@ This writes `./license/license.avastlic` and exits. The activation code can only
 docker run -p 9000:9000 \
   -v $(pwd)/license/license.avastlic:/etc/avast/license.avastlic \
   -v $(pwd)/scandata:/scandata \
-  iwfwebsolutions/av-rest:latest
+  iwfwebsolutions/avast-rest:latest
 ```
 
 
@@ -107,5 +107,5 @@ curl --http2-prior-knowledge "http://localhost:9000/scanFile?path=/tmp/file.txt"
 ### Build the Docker image
 
 ```bash
-docker build -t iwfwebsolutions/av-rest:latest .
+docker build -t iwfwebsolutions/avast-rest:latest .
 ```
