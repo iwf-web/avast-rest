@@ -1,23 +1,24 @@
 services:
-  clamav:
-    image: iwfwebsolutions/clamavast-rest:latest
-    container_name: clamav
-    environment:
-      MAX_SCAN_SIZE: 1000M # default 100M
-      MAX_FILE_SIZE: 1000M # default 25M
-      HEALTHCHECK_MAX_SIGNATURE_AGE: 48
-    volumes:
-      - ./scandata:/vscan
-    networks:
-      - default
-    ports:
-      - '9001:9000'
+  #clamav:
+  #  image: iwfwebsolutions/clamavast-rest:latest
+  #  container_name: clamav
+  #  environment:
+  #    MAX_SCAN_SIZE: 1000M # default 100M
+  #    MAX_FILE_SIZE: 1000M # default 25M
+  #    HEALTHCHECK_MAX_SIGNATURE_AGE: 48
+  #  volumes:
+  #    - ./scandata:/vscan
+  #  networks:
+  #    - default
+  #  ports:
+  #   - '9001:9000'
 
   avast:
     image: iwfwebsolutions/avast-rest:latest
     container_name: avast
     environment:
-      HEALTHCHECK_MAX_SIGNATURE_AGE: 48
+      HEALTHCHECK_MAX_SIGNATURE_AGE: 24
+      AVAST_THREADS: 1
     volumes:
       - ./scandata:/vscan
       - ./license/license.avastlic:/etc/avast/license.avastlic
