@@ -40,6 +40,11 @@ COPY --from=build /go/src/avast-rest/avast-rest /usr/bin/avast-rest
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 
+# add Abraxas Proxy cert to allow using the scanner in a their environments
+# use env: HTTPS_PROXY: 'http://igw-axzh.abxsec.com:8080'
+COPY AbraxasProxy.crt /usr/local/share/ca-certificates/AbraxasProxy.crt
+RUN /usr/sbin/update-ca-certificates
+
 # Environment – Avast paths (override if your installation differs)
 ENV SCANNER=avast
 ENV AVAST_SCAN_BIN=/usr/bin/scan
