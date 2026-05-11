@@ -1,5 +1,8 @@
 # Changelog
 
+`1.0.3` (2026-05-11)
+- better ERROR output handling
+ 
 `1.0.2` (2026-04-17)
 - update GO version due to security vulnerability
 
