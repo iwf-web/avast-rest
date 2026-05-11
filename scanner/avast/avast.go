@@ -94,10 +94,48 @@ func (s *Scanner) ScanFile(path string) (*scanner.ScanResult, error) {
 	default:
 		return &scanner.ScanResult{
 			Status:      scanner.StatusError,
-			Description: output,
+			Description: cleanAvastErrorOutput(output, path),
 			FileName:    path,
 		}, nil
 	}
+}
+
+// cleanAvastErrorOutput strips the "avast: " prefix from each line, removes the
+// redundant temp-file path (already in FileName), and deduplicates identical lines.
+// Line format from the scan binary: "avast: <path>[|><archive_path>]\t<code>: <msg>"
+func cleanAvastErrorOutput(output, filePath string) string {
+	lines := strings.Split(output, "\n")
+	seen := make(map[string]struct{})
+	var result []string
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		line = strings.TrimPrefix(line, "avast: ")
+		parts := strings.SplitN(line, "\t", 2)
+		var cleaned string
+		if len(parts) == 2 && filePath != "" {
+			archivePath := parts[0]
+			if strings.HasPrefix(archivePath, filePath+"|>") {
+				archivePath = archivePath[len(filePath)+2:]
+			} else if archivePath == filePath {
+				archivePath = ""
+			}
+			if archivePath != "" {
+				cleaned = archivePath + "\t" + parts[1]
+			} else {
+				cleaned = parts[1]
+			}
+		} else {
+			cleaned = line
+		}
+		if _, ok := seen[cleaned]; !ok {
+			seen[cleaned] = struct{}{}
+			result = append(result, cleaned)
+		}
+	}
+	return strings.Join(result, "\n")
 }
 
 // Version returns the Avast virus definitions version from the running daemon.

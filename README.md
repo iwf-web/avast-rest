@@ -107,5 +107,5 @@ curl --http2-prior-knowledge "http://localhost:9000/scanFile?path=/tmp/file.txt"
 ### Build the Docker image
 
 ```bash
-docker build -t iwfwebsolutions/avast-rest:latest .
+docker build --platform=linux/amd64 -t iwfwebsolutions/avast-rest:latest .
 ```

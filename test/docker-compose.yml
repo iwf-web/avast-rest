@@ -19,6 +19,8 @@ services:
     environment:
       HEALTHCHECK_MAX_SIGNATURE_AGE: 24
       AVAST_THREADS: 1
+      AVAST_REPORT_PUP: 1
+      AVAST_REPORT_TOOLS: 1
     volumes:
       - ./scandata:/vscan
       - ./license/license.avastlic:/etc/avast/license.avastlic
