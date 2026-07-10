@@ -1,5 +1,8 @@
 # Changelog
 
+`1.0.4` (2026-07-10)
+- update GO version due to security vulnerability 
+
 `1.0.3` (2026-05-11)
 - better ERROR output handling
  
