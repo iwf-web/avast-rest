@@ -1,5 +1,8 @@
 # Changelog
 
+`1.0.5` (2026-07-24)
+- generalize GO version to 1.26.*
+
 `1.0.4` (2026-07-10)
 - update GO version due to security vulnerability 
 
