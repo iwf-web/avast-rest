@@ -1,7 +1,5 @@
 ARG GO_VERSION=1.26
-FROM golang:${GO_VERSION}-alpine AS build
-
-RUN apk update && apk upgrade
+FROM golang:${GO_VERSION} AS build
 
 WORKDIR /go/src
 ADD . /go/src/avast-rest/

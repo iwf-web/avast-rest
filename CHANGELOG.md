@@ -1,6 +1,9 @@
 # Changelog
 
-`1.0.5` (2026-07-24)
+`1.0.6` (2026-07-03)
+- generalize GO version to 1.26.*
+
+- `1.0.5` (2026-07-24)
 - generalize GO version to 1.26.*
 
 `1.0.4` (2026-07-10)
